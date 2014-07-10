@@ -30,21 +30,21 @@ class Area(CommonInfo):
 
 class Room(CommonInfo):
     TERRAIN_TYPE = (
-        ('P', 'Plains'),
-        ('M', 'Mountain'),
-        ('F', 'Forest'),
-        ('S', 'Swamp'),
-        ('B', 'Island'),
-        ('X', 'Civilisation'),
-        ('D', 'Dungeon'),
-        ('C', 'Cave'),
-        ('T', 'Desert'),
-        ('G', 'Graveyard'),
-        ('H', 'Hills'),
-        ('A', 'Aquatic'),
+        ('Plains', 'Plains'),
+        ('Mountains', 'Mountain'),
+        ('Forest', 'Forest'),
+        ('Swamp', 'Swamp'),
+        ('Island', 'Island'),
+        ('Civilisation', 'Civilisation'),
+        ('Dungeon', 'Dungeon'),
+        ('Cave', 'Cave'),
+        ('Desert', 'Desert'),
+        ('Graveyard', 'Graveyard'),
+        ('Hills', 'Hills'),
+        ('Aquatic', 'Aquatic'),
     )
     area = models.ForeignKey('Area')
-    terrain = models.CharField(max_length=1, choices=TERRAIN_TYPE)
+    terrain = models.CharField(max_length=200, choices=TERRAIN_TYPE)
 
     class Meta:
         ordering = ['area']
@@ -89,15 +89,15 @@ class Character(CommonInfo):
 
 
 class ItemInfo(CommonInfo):  # Saves alot of coding work
-    STONE = 1
-    BRONZE = 2
-    IRON = 3
-    CLASSICAL = 4
-    DARK = 5
-    EMEDIEVAL = 6
-    LMEDIEVAL = 7
-    CHIVALRIC = 8
-    RENAISSANCE = 9
+    STONE = "Stone Age"
+    BRONZE = "Bronze Age"
+    IRON = "Iron Age"
+    CLASSICAL = "Classical Age"
+    DARK = "Dark Age"
+    EMEDIEVAL = "Early Medieval Age"
+    LMEDIEVAL = "Late Medieval Age"
+    CHIVALRIC = "Chivalric Age"
+    RENAISSANCE = "Renaissance Age"
 
     CULTURE_LEVEL = (
         (STONE, 'Stone Age'),
@@ -113,7 +113,10 @@ class ItemInfo(CommonInfo):  # Saves alot of coding work
     category = models.CharField(max_length=200)
     copper = models.PositiveIntegerField()
     weight = models.PositiveIntegerField()
-    culture = models.IntegerField(choices=CULTURE_LEVEL, default=1)
+    culture = models.CharField(
+        max_length=200,
+        choices=CULTURE_LEVEL,
+        default=EMEDIEVAL)
     rooms = models.ManyToManyField(Room)
 
     class Meta(CommonInfo.Meta):
@@ -125,25 +128,25 @@ class Equipment(ItemInfo):
 
 
 class GearInfo(ItemInfo):
-    SMALL = 1
-    MEDIUM = 2
-    LARGE = 3
-    HUGE = 4
+    SMALL = "Small"
+    MEDIUM = "Medium"
+    LARGE = "Large"
+    HUGE = "Huge"
 
-    ORGANIC = 0
-    STEEL = 1
-    IRON = 2
-    MITHRIL = 3
-    BONE = 4
-    GRANITE = 5
-    ENERGY = 6
-    ADAMANTINE = 7
-    SILVER = 8
-    WOOD = 9
+    ORGANIC = "Organic"
+    STEEL = "Steel"
+    IRON = "Iron"
+    MITHRIL = "Mithril"
+    BONE = "Bone"
+    GRANITE = "Granite"
+    ENERGY = "Energy"
+    ADAMANTINE = "Adamantine"
+    SILVER = "Silver"
+    WOOD = "Wood"
 
-    NOAURA = 0
-    BLESSED = 1
-    PROFANE = 2
+    NOAURA = "No Alignment Aura"
+    BLESSED = "Blessed"
+    PROFANE = "Profane"
 
     SIZE = (
         (SMALL, 'Small'),
@@ -172,7 +175,7 @@ class GearInfo(ItemInfo):
         max_length=200,
         choices=MATERIAL,
         default=STEEL)
-    size = models.IntegerField(max_length=1, choices=SIZE, default=MEDIUM)
+    size = models.CharField(max_length=200, choices=SIZE, default=MEDIUM)
     craftsmanship = models.CharField(
         max_length=200,
         default="Its craftsmanship is not of notable quality.")
@@ -186,8 +189,8 @@ class GearInfo(ItemInfo):
     noremove = models.BooleanField(default=False)
     nodrop = models.BooleanField(default=False)
     magical = models.BooleanField(default=False)
-    radiance = models.IntegerField(
-        max_length=1,
+    radiance = models.CharField(
+        max_length=200,
         choices=ALIGNMENTAURA,
         default=0)
     goodallowed = models.BooleanField(default=True)
@@ -200,13 +203,13 @@ class GearInfo(ItemInfo):
 
 class Weapon(GearInfo):
     HANDEDNESS = (
-        (1, 'One Handed'),
-        (2, 'Two Handed'),
-        (3, 'Light'),
+        ("One Handed", 'One Handed'),
+        ("Two Handed", 'Two Handed'),
+        ("Light Weapon", 'Light'),
     )
     # Chose not to use inheritence for glowing, humming, powerful
     damage = models.CharField(max_length=200, default="1d6")
-    handedness = models.IntegerField(max_length=1, choices=HANDEDNESS)
+    handedness = models.CharField(max_length=200, choices=HANDEDNESS)
 
     nodisarm = models.BooleanField(default=False)
     piercing = models.BooleanField(default=False)
@@ -264,11 +267,11 @@ class Armor(DefensiveInfo):
 
 
 class House(models.Model):
-    UNKNOWN = 0
-    THE_DAWN_AGE = 1
-    AGE_OF_HEROES = 2
-    GOLDEN_AGE = 3
-    DARK_AGE = 4
+    UNKNOWN = "Unknown"
+    THE_DAWN_AGE = "The Dawn Age"
+    AGE_OF_HEROES = "The Age of Heroes"
+    GOLDEN_AGE = "The Golden Age"
+    DARK_AGE = "The Dark Age"
 
     ERA = (
         (UNKNOWN, 'Unknown'),
@@ -293,21 +296,21 @@ class House(models.Model):
         blank=True,
         related_name="cadet_branches_set")
     ancestral_weapon = models.OneToOneField(Weapon, null=True, blank=True)
-    founded = models.IntegerField(
-        max_length=1,
+    founded = models.CharField(
+        max_length=200,
         choices=ERA,
         null=True,
         blank=True)
 
 
 class Noble(CommonInfo):
-    MALE = 1
-    FEMALE = 2
+    MALE = "Male"
+    FEMALE = "Female"
     GENDER = (
         (MALE, 'Male'),
         (FEMALE, 'Female'),
     )
-    gender = models.IntegerField(max_length=1, choices=GENDER)
+    gender = models.CharField(max_length=200, choices=GENDER)
     house = models.ForeignKey(House)
     lord = models.BooleanField(default=False)
     founder = models.BooleanField(default=False)
