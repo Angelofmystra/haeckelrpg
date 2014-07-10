@@ -14,8 +14,9 @@ INSTALLATION INSTRUCTIONS
 
 System Requirements:
 
-Python 2.7.5
-Django 1.6
+* Python 2.7.5
+
+* Django 1.6
 
 The end users will only need to access the website in order to log on and play.
 
@@ -23,9 +24,11 @@ The world builders will do something similar, except that they must logon to the
 
 To host the server three things must be done.
 
-1) You will need to activate the virtual environment. On my MAC OSX this involves typing "source venv/bin/activate" for the mysite folder
-2) Run the "server.py" command by typing in "python server.py" so that the RPG Game Client is hosted.
-3) Run the "python manage.py runserver" command so that the web server is hosted.
+* You will need to activate the virtual environment. On my MAC OSX this involves typing "source venv/bin/activate" for the mysite folder
+
+* Run the "server.py" command by typing in "python server.py" so that the RPG Game Client is hosted.
+
+* Run the "python manage.py runserver" command so that the web server is hosted.
 
 WHERE TO GET HELP
 
@@ -38,11 +41,15 @@ There are a number of things I need which I cannot do myself. Art for the websit
 For the coding style I use the Flake8 tool, which is a wrapper around PyFlakes, pep8 and Ned Batchelder's McCabe script. I also use a script to automatically improve my code quality named "autopep" which is described as a "tool that automatically formats Python code to conform to the PEP 8 style guide". For more information on both, check:
 
 https://pypi.python.org/pypi/flake8
+
 https://pypi.python.org/pypi/autopep8/ 
 
 Contributors List (in alphabetical order)
+
 Bertrand Brompton
+
 Matthew Collins
+
 Paul Massey
 
 CREDITS, INSPIRATION, ALTERNATIVES
