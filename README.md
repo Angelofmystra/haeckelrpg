@@ -12,11 +12,7 @@ UNIQUE SELLING POINTS
 
 INSTALLATION INSTRUCTIONS
 
-System Requirements:
-
-* Python 2.7.5
-
-* Django 1.6
+System Requirements: They are stored in the "requirements.txt" file. This has been generated using "pip freeze". 
 
 The end users will only need to access the website in order to log on and play.
 
@@ -24,7 +20,7 @@ The world builders will do something similar, except that they must logon to the
 
 To host the server three things must be done.
 
-* You will need to activate the virtual environment. On my MAC OSX this involves typing "source venv/bin/activate" for the mysite folder
+* You will need to activate the virtual environment. "virtualenv --no-site-packages --distribute .env && source .env/bin/activate && pip install -r requirements.txt"
 
 * Run the "server.py" command by typing in "python server.py" so that the RPG Game Client is hosted.
 
