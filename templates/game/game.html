@@ -1,0 +1,45 @@
+{% extends "home/base2.html" %}
+{% load staticfiles %}
+{% block script %}
+<script type="text/javascript" src="http://java.com/js/dtjava.js"></script>
+
+<script>
+    function launchApplication(jnlpfile) {
+        dtjava.launch(            {
+                url : '{% static "game.jnlp" %}'
+            },
+            {
+                javafx : '2.2+'
+            },
+            {}
+        );
+        return false;
+    }
+</script>
+
+<script>
+    function javafxEmbed() {
+        dtjava.embed(
+            {
+                url : '{% static "game.jnlp" %}',
+                placeholder : 'javafx-app-placeholder',
+                width : 800,
+                height : 600
+            },
+            {
+                javafx : '2.2+'
+            },
+            {}
+        );
+    }
+    <!-- Embed FX application into web page once page is loaded -->
+    dtjava.addOnloadCallback(javafxEmbed);
+</script>
+{% endblock %}
+<!--</head><body>
+<h2>Test page for <b>HaeckelGameClient3</b></h2>
+  <b>Webstart:</b> <a href='game.jnlp' onclick="return launchApplication('game.jnlp');">click to launch this app as webstart</a><br><hr><br> -->
+
+  <!-- Applet will be inserted here -->
+  {% block supersection %} <div id='javafx-app-placeholder'></div> {% endblock %}
+

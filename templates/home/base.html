@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}Haeckel Site{% endblock %}</title>
+</head>
+
+<body>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/admin/">Admin</a></li>
+            <li><a href="/poll/">Poll</a></li>
+            <li><a href="/worldbuilder/">Worldbuilder</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}
+        <h2>Entry one</h2>
+        <p>This is my first entry.</p>
+
+        <h2>Entry two</h2>
+        <p>This is my second entry.</p>
+        {% endblock content %}
+    </div>
+</body>
+</html>

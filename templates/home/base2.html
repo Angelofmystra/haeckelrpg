@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+	<head> {% block script %}{% endblock %}
+		<title>Haeckel</title>
+		<style type="text/css">
+			header, section, footer, aside, nav, article, figure, figcaption {
+				display: block;}
+			body {
+				color: #666666;
+				background-color: #f9f8f6;
+				background-image: url("{% static "background.jpg" %}");
+				background-position: center;
+				font-family: Georgia, Times, serif;
+				line-height: 1.4em;
+				margin: 0px;}
+			.wrapper {
+				width: 940px;
+				margin: 20px auto 20px auto;
+				border: 2px solid #000000;
+				background-color: #ffffff;}
+
+
+			.loginform ul { 
+    			padding: 0;  
+    			margin: 0;  
+			}  
+			.loginform li {  
+    			display: inline;  
+    			float: left;  
+			}
+			label {
+				display: block;
+				color: #999;
+			}
+			.cf:before,
+			.cf:after {
+			    content: ""; 
+			    display: table;
+			}
+
+			.cf:after {
+			    clear: both;
+			}
+			.cf {
+			    *zoom: 1;
+			}
+			:focus {
+				outline: 0;
+			}
+			.loginform input:not([type=submit]) {
+				padding: 5px;
+				margin-right: 10px;
+				border: 1px solid rgba(0, 0, 0, 0.3);
+				border-radius: 3px;
+				box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.1), 
+							0px 1px 0px 0px rgba(250, 250, 250, 0.5) ;
+			}
+			.loginform input[type=submit] {
+				border: 1px solid rgba(0, 0, 0, 0.3);
+				background: #64c8ef; /* Old browsers */
+				background: -moz-linear-gradient(top,  #64c8ef 0%, #00a2e2 100%); /* FF3.6+ */
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#64c8ef), color-stop(100%,#00a2e2)); /* Chrome,Safari4+ */
+				background: -webkit-linear-gradient(top,  #64c8ef 0%,#00a2e2 100%); /* Chrome10+,Safari5.1+ */
+				background: -o-linear-gradient(top,  #64c8ef 0%,#00a2e2 100%); /* Opera 11.10+ */
+				background: -ms-linear-gradient(top,  #64c8ef 0%,#00a2e2 100%); /* IE10+ */
+				background: linear-gradient(to bottom,  #64c8ef 0%,#00a2e2 100%); /* W3C */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64c8ef', endColorstr='#00a2e2',GradientType=0 ); /* IE6-9 */
+				color: #fff;
+				padding: 5px 15px;
+				margin-right: 0;
+				margin-top: 15px;
+				border-radius: 3px;
+				text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+			}
+			input:required {
+				border: 1px solid red;
+			}
+
+			header {
+				height: 160px;
+				background-image: url("{% static "banner.jpg" %}");}
+			h1 {
+				text-indent: -9999px;
+				width: 940px;
+				height: 130px;
+				margin: 0px;}
+			nav, footer {
+				clear: both;
+				color: #ffffff;
+				background-color: #aeaca8;
+				height: 30px;}
+			nav ul {
+				margin: 0px;
+				padding: 5px 0px 5px 30px;}
+			nav li {
+				display: inline;
+				margin-right: 40px;}
+			nav li a {
+				color: #ffffff;}
+			nav li a:hover, nav li a.current {
+				color: #000000;}
+			section.courses {
+				float: left;
+				width: 659px;
+				border-right: 1px solid #eeeeee;}
+			article {
+				clear: both;
+				overflow: auto;
+				width: 100%;}
+			hgroup {
+				margin-top: 40px;}
+			figure {
+				float: left;
+				width: 290px;
+				height: 220px;
+				padding: 5px;
+				margin: 20px;
+				border: 1px solid #eeeeee;}
+			figcaption {
+				font-size: 90%;
+				text-align: left;}
+			aside {
+				width: 230px;
+				float: left;
+				padding: 0px 0px 0px 20px;}
+			aside section a {
+				display: block;
+				padding: 10px;
+				border-bottom: 1px solid #eeeeee;}
+			aside section a:hover {
+				color: #985d6a;
+				background-color: #efefef;}
+			a {
+				color: #de6581;
+				text-decoration: none;}
+			h1, h2, h3 {
+				font-weight: normal;}
+			h2 {
+				margin: 10px 0px 5px 0px;
+				padding: 0px;}
+			h3 {
+				margin: 0px 0px 10px 0px;
+				color: #de6581;}
+			aside h2 {
+				padding: 30px 0px 10px 0px;
+				color: #de6581;}
+			footer {
+				font-size: 80%;
+				padding: 7px 0px 0px 20px;}
+		</style>
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+	</head>
+	<body>
+		<div class="wrapper">
+			<header>
+				<h1>Haeckel</h1>
+				<nav>
+					<ul>
+						<li><a href="/" class="">home</a></li>
+						<li><a href="/admin/">admin</a></li>
+						<li><a href="/polls/">poll</a></li>
+						<li><a href="/todolist/">todolist</a></li>
+						<li><a href="">worldbuilder</a></li>
+						<li><a href="">about</a></li>
+						<li><a href="/game/">game</a></li>
+						<li><a href="">contact</a></li>
+						<li><a href="/stories/">stories</a></li>
+					</ul>
+				</nav>
+			</header>
+			{% block supersection %}
+			<section class="courses">
+				
+				{% block section %}
+				<article>
+					<figure>
+						<img src="{% block image1 %}{% endblock %}" alt="{% block image1alt %}Dungeon{% endblock %}" />
+						<figcaption>{% block image1fig %}Dungeons!{% endblock %}</figcaption>
+					</figure>
+					<hgroup>
+						<h2>{% block post_h2 %}Into Insanity Podcast {% endblock %}</h2>
+						<h3>{% block post_h3 %}A Dungeons and Dragons adventure!{% endblock %}</h3>
+					</hgroup>
+					{% block post_content %}<p>A weekly podcast where four roleplaying enthusiasts play pathfinder together and hope to survive the horrors of the world!</p>{% endblock %}
+				</article>    
+				<article>
+					<figure>
+						<img src="{% block image2 %}{% endblock %}" alt="{% block image2alt %}Warrior{% endblock %}" />
+						<figcaption>{% block image2fig %}Warrior!{% endblock %}</figcaption>
+					</figure>
+					<hgroup>
+						<h2>{% block post2_h2 %}Tutorial: How to play!{% endblock %}</h2>
+						<h3>{% block post2_h3 %}Perilous exploration awaits{% endblock %}</h3>
+					</hgroup>
+					{% block post2_content %}<p>Introduces new players to the game and teaches them the basics.</p>{% endblock %}
+				</article>
+				{% endblock %}    
+			</section>
+			<aside>
+				{% if user.is_authenticated %}
+					<!-- Authenticate account menu -->
+				<section class="popular-recipes">
+				{% block side2 %}
+					<h2>Member Sites</h2>
+					<a href="/profile/">Profile</a>
+					<a href="/score/">Score</a>
+					<a href="/characters/">Characters</a>
+					<a href="/logout/">Logout</a>
+				{% endblock %}
+				</section>
+				{% else %}
+				<section class="loginform cf">
+					{{state}}
+					<ul>
+						<form action="/login/" method="post">
+						{% csrf_token %}
+						{% if next %}
+						<input type="hidden" name="next" value="{{ next }}" />
+						{% endif %}
+						<li><label for="usermail">Username</label> 
+						<input type="text" name="username" value="{{ username}}" placeholder="username" required/></li>
+						<li><label for="password">Password</label>
+						<input type="password" name="password" value="" placeholder="password" required/></li>
+						<input type="hidden" name="next" value="{{ NEXT }}" />
+						<li><input type="submit" value="Log In" /></li>
+						
+						</form>
+					</ul>
+				</section>
+				{% endif %}
+				<section class="popular-recipes">
+				{% block side %}
+					<h2>Adventure Sites</h2>
+					<a href="">Nes</a>
+					<a href="">Abyssimiar</a>
+					<a href="">Midgaard</a>
+					<a href="">Brouliard</a>
+				{% endblock %}
+				</section>
+				<section class="contact-details">
+					<h2>Contact</h2>
+					<p>Bertrand B.<br />
+						123 Fake Street<br />
+						Somewhere<br />
+						London E1 7Fake</p>
+				</section>
+			
+			</aside>
+			{% endblock %}	
+			<footer>
+				&copy; 2014 Bertrand
+			</footer>
+		</div><!-- .wrapper -->
+	</body>
+</html>

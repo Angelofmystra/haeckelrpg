@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "worldbuilder.area", "fields": {"author": "Bertrand", "name": "Roggeg", "desc": "A border town famous for its honey."}}, {"pk": 1, "model": "worldbuilder.room", "fields": {"area": 1, "terrain": "X", "name": "Market Square", "desc": "Filled with merchants of all kinds. You hear bees."}}

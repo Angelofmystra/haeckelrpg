@@ -1,0 +1,12 @@
+{% extends "home/base2.html" %}
+{% block title %}Todo List{% endblock %}
+{% block post_h2 %}Todo List{% endblock %}
+{% block post_h3 %}Type:Content:Priority{% endblock %}
+{% block post_content %}
+  {% for todo in todolist %}
+    <li><a href="">{{todo.todotype}}: {{ todo.content }}: {{todo.priority}}</a></li>
+  {% endfor %}
+{% endblock %}
+{% block post2_h2 %}{% endblock %}
+{% block post2_h3 %}{% endblock %}
+{% block post2_content %}{% endblock %}
