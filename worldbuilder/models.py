@@ -71,7 +71,7 @@ class Character(CommonInfo):
         ('LG', 'Lawful Good'),
     )
     user = models.OneToOneField(User)
-    ipAddress = models.IPAddressField()
+    connection = models.TextField()
     role = models.TextField(default="")
     rooms = models.ManyToManyField(Room)
     title = models.CharField(max_length=200)
@@ -324,3 +324,19 @@ class Noble(CommonInfo):
         null=True,
         blank=True,
         related_name="father_of_set")
+
+class HelpFile(CommonInfo):
+    PROGRAMMER = "Programmer"
+    DATABASE = "Database Designer"
+    WORLDBUILDER = "World Builder"
+    PLAYER = "Player"
+    TROUBLESHOOTING = "Troubleshooting"
+    AUDIENCE = (
+        (PROGRAMMER, 'Programmer'),
+        (DATABASE, 'Database Designer'),
+        (WORLDBUILDER, 'World Builder'),
+        (PLAYER, 'Player'),
+        (TROUBLESHOOTING, 'Troubleshooting'),
+    )
+    audience = models.CharField(max_length=200, choices=AUDIENCE)
+    helpfile = models.FileField(upload_to='documents/%Y/%m/%d')
