@@ -19,8 +19,9 @@
 				margin: 20px auto 20px auto;
 				border: 2px solid #000000;
 				background-color: #ffffff;}
-
-
+            a[href$=".pdf"]:after { content: " (PDF)"; }
+            /* If file size specified as data attribute, use that too */
+            a[href$=".pdf"][data-size]:after { content: " (PDF, " attr(data-size) ")"; }
 			.loginform ul { 
     			padding: 0;  
     			margin: 0;  
@@ -148,13 +149,14 @@
 			footer {
 				font-size: 80%;
 				padding: 7px 0px 0px 20px;}
+			{% block css %}{% endblock %}
 		</style>
 		<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
 	</head>
-	<body>
+	{% block body %}<body>{% endblock %}
 		<div class="wrapper">
 			<header>
 				<h1>Haeckel</h1>
