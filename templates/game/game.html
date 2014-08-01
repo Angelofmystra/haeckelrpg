@@ -1,45 +1,62 @@
 {% extends "home/base2.html" %}
 {% load staticfiles %}
 {% block script %}
-<script type="text/javascript" src="http://java.com/js/dtjava.js"></script>
+        <style>
+        {% block css %}
+            p { line-height:18px; font-family: Courier; font-size:12px; padding:0px; margin:0px;}
 
-<script>
-    function launchApplication(jnlpfile) {
-        dtjava.launch(            {
-                url : '{% static "game.jnlp" %}'
-            },
-            {
-                javafx : '2.2+'
-            },
-            {}
-        );
-        return false;
-    }
-</script>
+            div { width:500px; margin-left:auto; margin-right:auto;}
 
-<script>
-    function javafxEmbed() {
-        dtjava.embed(
-            {
-                url : '{% static "game.jnlp" %}',
-                placeholder : 'javafx-app-placeholder',
-                width : 800,
-                height : 600
-            },
-            {
-                javafx : '2.2+'
-            },
-            {}
-        );
-    }
-    <!-- Embed FX application into web page once page is loaded -->
-    dtjava.addOnloadCallback(javafxEmbed);
-</script>
+            #chatlog { padding:5px; background:#ddd; border-radius:5px; overflow-y: scroll; border:1px solid #CCC; margin-top:10px; height: 320px; word-wrap: normal; width: 90%;  -moz-box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5); -webkit-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5); box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5);}
+
+            #input { border-radius:2px; border:1px solid #ccc; margin-top:10px; padding:5px; width: 90%;  -moz-box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5); -webkit-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5); box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5);}
+
+            form input {width: 90%;}
+
+            #status { border-radius:2px; border:1px solid #ccc; margin-top:10px; padding:5px; width: 90%; -moz-box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5); -webkit-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5); box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5);}
+
+            #message_input {width: 80%; height: 10%;}
+
+            #datasend {border:solid 1px #ccc; padding:15px 30px; margin:0 0 20px; font-family:Arial, sans-serif; font-size:1.2em;text-transform:uppercase;font-weight:bold;color:#333;cursor:pointer;-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; text-shadow: 0px -1px 1px rgba(255, 255, 255, 0.8); background-image: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#aaa));  background-image: -webkit-linear-gradient(top, #ddd, #aaa);   background-image: -moz-linear-gradient(top, #ddd, #aaa);  background-image: -ms-linear-gradient(top, #ddd, #aaa);  background-image: -o-linear-gradient(top, #ddd, #aaa); background-image: linear-gradient(top, #ddd, #aaa); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ddd', endColorstr='#aaa',GradientType=0 ); /* IE6-9 */
+            }
+        {% endblock %}
+        </style>
+        <script> // This script has been run through JSLint
+            var ws; // Explicitly made this global since multiple functions use it.
+            function addMessage(message) {
+                "use strict";
+                document.getElementById("chatlog").innerHTML = (document.getElementById("chatlog").innerHTML + "<p>" + message + "</p>");
+                document.getElementById("chatlog").style.wordWrap = "break-word";
+            }
+            function init() {
+                "use strict";
+                var status_msg = document.getElementById("status");
+                ws = new WebSocket("ws://82.0.42.123:50000/ws");
+                ws.onopen = function () {
+                    status_msg.innerHTML = status_msg.innerHTML + "Server connected";
+                };
+                ws.onmessage = function (e) {
+                    addMessage(e.data);
+                };
+                ws.onclose = function () {
+                    status_msg.innerHTML = status_msg.innerHTML + "Server disconnected";
+                };
+            }
+            function postmsg() {
+                "use strict";
+                var text = document.getElementById("message_input").value;
+                ws.send(text);
+                status_msg.innerHTML = status_msg.innerHTML + "<br>>> Data sent: " + text;
+            }
+        </script>
 {% endblock %}
-<!--</head><body>
-<h2>Test page for <b>HaeckelGameClient3</b></h2>
-  <b>Webstart:</b> <a href='game.jnlp' onclick="return launchApplication('game.jnlp');">click to launch this app as webstart</a><br><hr><br> -->
-
-  <!-- Applet will be inserted here -->
-  {% block supersection %} <div id='javafx-app-placeholder'></div> {% endblock %}
-
+{% block body %} <body onload="init();"> {% endblock %}
+{% block supersection %}
+        <div id="chatlog"></div>
+        <div id="input"><input type="text" id="message_input"/>
+             <button onclick="postmsg();return false;" id="datasend">send</button>
+            <p>Watch out for the <a href="tutorial.pdf">Tutorial</a> here!</p>          
+        </div>
+        <div id="status">Status: </div>
+        <br />
+{% endblock %}
